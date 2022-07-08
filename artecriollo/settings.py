@@ -39,7 +39,7 @@ LOCAL_RUN=True
 # TEMPLATE_DEBUG = DEBUG
 
 # ALLOWED_HOSTS = ['artecriollo.nat.cu','www.artecriollo.nat.cu','152.206.118.246']
-ALLOWED_HOSTS = [gethostname(),'artecriollo.nat.cu','www.artecriollo.nat.cu','152.206.118.246','localhost']
+ALLOWED_HOSTS = [gethostname(),'artecriollo.nat.cu','www.artecriollo.nat.cu','152.206.118.246','localhost','127.0.0.1']
 
 
 
