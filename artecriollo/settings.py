@@ -32,14 +32,14 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # DEBUG = env('DEBUG')
-DEBUG=False
+DEBUG=True
 
 #SI ESTA CORREINDO LOCAL EL PROYECTO
-LOCAL_RUN=False
+LOCAL_RUN=True
 # TEMPLATE_DEBUG = DEBUG
 
 # ALLOWED_HOSTS = ['artecriollo.nat.cu','www.artecriollo.nat.cu','152.206.118.246']
-ALLOWED_HOSTS = [gethostname(),'artecriollo.nat.cu','www.artecriollo.nat.cu','152.206.118.246','localhost']
+ALLOWED_HOSTS = [gethostname(),'artecriollo.nat.cu','www.artecriollo.nat.cu','152.206.118.246','localhost','127.0.0.1']
 
 
 
@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django.contrib.sitemaps',
     'django.contrib.sites', 
 ]
