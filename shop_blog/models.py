@@ -28,7 +28,7 @@ class Categoria(ModeloBase):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.nombre)
-        super(Post, self).save(*args, **kwargs)
+        super(Categoria, self).save(*args, **kwargs)
 
 class Autor(ModeloBase):
     nombre = models.CharField('Nombres',max_length = 100)
