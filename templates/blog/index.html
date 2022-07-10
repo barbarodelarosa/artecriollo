@@ -1,5 +1,6 @@
 {% comment %} {% load staticfiles %} {% endcomment %}
 {% load static %}
+{% load menu_principal_tags %}
 <!DOCTYPE html>
 <html lang="en">
  <head>
@@ -58,9 +59,13 @@
 
              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block mb-0">
                <li class="active"><a href="{% url 'shop_blog:index' %}">Inicio</a></li>
-               <li><a href="{% url 'shop_blog:generales' %}">Generales</a></li>
-               <li><a href="{% url 'shop_blog:videojuegos' %}">Videojuegos</a></li>
-               <li><a href="{% url 'shop_blog:formulario_contacto' %}">Contacto</a></li>
+               {% menu_principal as menu %}
+               {% for item in menu  %}
+                  <li><a href="#">Generales</a></li>
+               
+               {% endfor %}
+               {% comment %} <li><a href="{% url 'shop_blog:videojuegos' %}">Videojuegos</a></li> {% endcomment %}
+               {% comment %} <li><a href="{% url 'shop_blog:formulario_contacto' %}">Contacto</a></li> {% endcomment %}
              </ul>
            </nav>
          </div>

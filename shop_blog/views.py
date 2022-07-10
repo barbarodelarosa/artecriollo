@@ -27,28 +27,14 @@ class Inicio(ListView):
         post4 = random.choice(posts)
         posts.remove(post4)
 
-        # try:
-        #     post_videojuegos = Post.objects.filter(
-        #                         estado = True,
-        #                         publicado = True,
-        #                         categoria = Categoria.objects.get(nombre = 'Videojuegos')
-        #                         ).latest('fecha_publicacion')
-        # except:
-        #     post_videojuegos = None
-
-        # try:
-        #     post_general = Post.objects.filter(
-        #                     estado = True,
-        #                     publicado = True,
-        #                     categoria = Categoria.objects.get(nombre = 'General')
-        #                     ).latest('fecha_publicacion')
-        # except:
-        #     post_general = None
+     
         categorias = list(Categoria.objects.filter(
                 estado = True,
                 post__estado=True,
                 post__publicado = True,
                 ).values_list('id',flat = True))
+        
+
 
         categoria1 = random.choice(categorias)
         categorias.remove(categoria1)

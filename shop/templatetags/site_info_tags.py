@@ -36,3 +36,5 @@ def lottery():
 def pages():
     pages = Page.objects.filter(active=True)
     return pages
+
+
