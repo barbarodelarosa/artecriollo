@@ -189,9 +189,13 @@
          <div class="col-md-3 ml-auto">
            <h3 class="footer-heading mb-4">Menú Rápido</h3>
            <ul class="list-unstyled float-left">
-             <li><a href="{% url 'shop_blog:generales' %}">Generales</a></li>
+             {% comment %} <li><a href="{% url 'shop_blog:generales' %}">Generales</a></li>
              <li><a href="{% url 'shop_blog:videojuegos' %}">Videojuegos</a></li>
-             <li><a href="{% url 'shop_blog:formulario_contacto' %}">Contacto</a></li>
+             <li><a href="{% url 'shop_blog:formulario_contacto' %}">Contacto</a></li> {% endcomment %}
+             {% for item in menu  %}
+                  <li><a href="#">Generales</a></li>
+               
+               {% endfor %}
            </ul>
          </div>
          <div class="col-md-4">
