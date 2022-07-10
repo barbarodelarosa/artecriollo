@@ -78,6 +78,7 @@ INSTALLED_APPS += [
     'djcelery_email',
     'crispy_forms',
     'ckeditor',
+    'import_export',
 
     'django_crontab',
     'captcha',

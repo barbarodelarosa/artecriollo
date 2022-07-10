@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import Inicio,Listado,FormularioContacto,DetallePost,Suscribir
 
+app_name='blog'
 urlpatterns = [
     path('',Inicio.as_view(), name = 'index'),
     path('videojuegos/',Listado.as_view(),{'nombre_categoria':'Videojuegos'}, name = 'videojuegos'),
