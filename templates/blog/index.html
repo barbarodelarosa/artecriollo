@@ -61,8 +61,7 @@
                <li class="active"><a href="{% url 'shop_blog:index' %}">Inicio</a></li>
                {% menu_principal as menu %}
                {% for item in menu  %}
-                  <li><a href="#">Generales</a></li>
-               
+                  <li><a href="{% url 'shop_blog:categoria' item.slug %}">{{item.nombre}}</a></li>
                {% endfor %}
                {% comment %} <li><a href="{% url 'shop_blog:videojuegos' %}">Videojuegos</a></li> {% endcomment %}
                {% comment %} <li><a href="{% url 'shop_blog:formulario_contacto' %}">Contacto</a></li> {% endcomment %}
@@ -192,9 +191,8 @@
              {% comment %} <li><a href="{% url 'shop_blog:generales' %}">Generales</a></li>
              <li><a href="{% url 'shop_blog:videojuegos' %}">Videojuegos</a></li>
              <li><a href="{% url 'shop_blog:formulario_contacto' %}">Contacto</a></li> {% endcomment %}
-             {% for item in menu  %}
-                  <li><a href="#">Generales</a></li>
-               
+            {% for item in menu  %}
+                  <li><a href="{% url 'shop_blog:categoria' item.slug %}">{{item.nombre}}</a></li>
                {% endfor %}
            </ul>
          </div>
