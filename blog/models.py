@@ -71,6 +71,7 @@ class Web(ModeloBase):
     def __str__(self):
         return self.nosotros
 
+
 class RedesSociales(ModeloBase):
     facebook = models.URLField('Facebook')
     twitter = models.URLField('Twitter')
