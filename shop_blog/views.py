@@ -78,8 +78,8 @@ class Inicio(ListView):
             'post2': consulta(post2),
             'post3': consulta(post3),
             'post4': consulta(post4),
-            'categoria1':post_categoria1,
-            'categoria2':post_categoria2,
+            'post_categoria1':post_categoria1,
+            'post_categoria2':post_categoria2,
             'sociales':obtenerRedes(),
             'web':obtenerWeb(),
         }
