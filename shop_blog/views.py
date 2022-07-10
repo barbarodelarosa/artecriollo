@@ -46,8 +46,10 @@ class Inicio(ListView):
         #     post_general = None
         categorias = list(Categoria.objects.filter(
                 estado = True,
-                post__estado=True
+                post__estado=True,
+                post__publicado = True,
                 ).values_list('id',flat = True))
+
         categoria1 = random.choice(categorias)
         categorias.remove(categoria1)
 
