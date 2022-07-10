@@ -27,23 +27,49 @@ class Inicio(ListView):
         post4 = random.choice(posts)
         posts.remove(post4)
 
+        # try:
+        #     post_videojuegos = Post.objects.filter(
+        #                         estado = True,
+        #                         publicado = True,
+        #                         categoria = Categoria.objects.get(nombre = 'Videojuegos')
+        #                         ).latest('fecha_publicacion')
+        # except:
+        #     post_videojuegos = None
+
+        # try:
+        #     post_general = Post.objects.filter(
+        #                     estado = True,
+        #                     publicado = True,
+        #                     categoria = Categoria.objects.get(nombre = 'General')
+        #                     ).latest('fecha_publicacion')
+        # except:
+        #     post_general = None
+        categorias = list(Categoria.objects.filter(
+                estado = True,
+                ).values_list('id',flat = True))
+        categoria1 = random.choice(categorias)
+        categorias.remove(categoria1)
+
+        categoria2 = random.choice(categorias)
+        categorias.remove(categoria2)
+        
         try:
-            post_videojuegos = Post.objects.filter(
+            post_categoria1 = Post.objects.filter(
                                 estado = True,
                                 publicado = True,
-                                categoria = Categoria.objects.get(nombre = 'Videojuegos')
+                                categoria = Categoria.objects.get(id = categoria1)
                                 ).latest('fecha_publicacion')
         except:
-            post_videojuegos = None
+            post_categoria1 = None
 
         try:
-            post_general = Post.objects.filter(
+            post_categoria2 = Post.objects.filter(
                             estado = True,
                             publicado = True,
-                            categoria = Categoria.objects.get(nombre = 'General')
+                            categoria = Categoria.objects.get(id = categoria2)
                             ).latest('fecha_publicacion')
         except:
-            post_general = None
+            post_categoria2 = None
 
         contexto = {
             'principal':principal,
@@ -51,8 +77,8 @@ class Inicio(ListView):
             'post2': consulta(post2),
             'post3': consulta(post3),
             'post4': consulta(post4),
-            'post_general':post_general,
-            'post_videojuegos':post_videojuegos,
+            'categoria1':post_categoria1,
+            'categoria2':post_categoria2,
             'sociales':obtenerRedes(),
             'web':obtenerWeb(),
         }

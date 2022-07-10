@@ -138,36 +138,36 @@
        <div class="row">
          <div class="col-lg-6 mb-6 mb-lg-6">
            <div class="section-heading mb-5 d-flex align-items-center">
-             <h2>{{ post_general.categoria | upper }}</h2>
+             <h2>{{ post_categoria1.categoria | upper }}</h2>
              <div class="ml-auto"><a href="{% url 'shop_blog:generales' %}" class="view-all-btn">VER TODOS</a></div>
            </div>
            <div class="entry2 mb-5">
-             <a href="{% url 'shop_blog:detalle_post' post_general.slug %}"><img src="{{ post_general.imagen_referencial.url }}" alt="Image" class="img-fluid rounded"></a>
+             <a href="{% url 'shop_blog:detalle_post' post_categoria1.slug %}"><img src="{{ post_categoria1.imagen_referencial.url }}" alt="Image" class="img-fluid rounded"></a>
              <span class="post-category text-white bg-primary mb-3"></span>
-             <h2><a href="{% url 'shop_blog:detalle_post' post_general.slug %}"></a>{{ post_general.titulo }}</h2>
+             <h2><a href="{% url 'shop_blog:detalle_post' post_categoria1.slug %}"></a>{{ post_categoria1.titulo }}</h2>
              <div class="post-meta align-items-center text-left clearfix">
-               <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_general.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
-               <span class="d-inline-block mt-1">POR <a href="#">{{ post_general.autor }}</a></span>
-               <span>{{ post_general.fecha_publicacion }}</span>
+               <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_categoria1.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
+               <span class="d-inline-block mt-1">POR <a href="#">{{ post_categoria1.autor }}</a></span>
+               <span>{{ post_categoria1.fecha_publicacion }}</span>
              </div>
-             <p>{{ post_general.descripcion }}</p>
+             <p>{{ post_categoria1.descripcion }}</p>
            </div>
         </div>
         <div class="col-lg-6 mb-6 mb-lg-6">
           <div class="section-heading mb-5 d-flex align-items-center">
-            <h2>{{ post_videojuegos.categoria | upper }}</h2>
+            <h2>{{ post_categoria1.categoria | upper }}</h2>
             <div class="ml-auto"><a href="{% url 'shop_blog:videojuegos' %}" class="view-all-btn">VER TODOS</a></div>
           </div>
           <div class="entry2 mb-5">
-            <a href="{% url 'shop_blog:detalle_post' post_general.slug %}"><img src="{{ post_videojuegos.imagen_referencial.url }}" alt="Image" class="img-fluid rounded"></a>
+            <a href="{% url 'shop_blog:detalle_post' post_categoria1.slug %}"><img src="{{ post_categoria1.imagen_referencial.url }}" alt="Image" class="img-fluid rounded"></a>
             <span class="post-category text-white bg-primary mb-3"></span>
-            <h2><a href="{% url 'shop_blog:detalle_post' post_videojuegos.slug %}"></a>{{ post_videojuegos.titulo }}</h2>
+            <h2><a href="{% url 'shop_blog:detalle_post' post_categoria1.slug %}"></a>{{ post_categoria1.titulo }}</h2>
             <div class="post-meta align-items-center text-left clearfix">
-              <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_videojuegos.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
-              <span class="d-inline-block mt-1">POR <a href="#">{{ post_videojuegos.autor }}</a></span>
-              <span>{{ post_videojuegos.fecha_publicacion }}</span>
+              <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ post_categoria1.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
+              <span class="d-inline-block mt-1">POR <a href="#">{{ post_categoria1.autor }}</a></span>
+              <span>{{ post_categoria1.fecha_publicacion }}</span>
             </div>
-            <p>{{ post_videojuegos.descripcion }}</p>
+            <p>{{ post_categoria1.descripcion }}</p>
           </div>
        </div>
        </div>
