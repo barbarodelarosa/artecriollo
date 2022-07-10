@@ -74,6 +74,17 @@ class Inicio(ListView):
         except:
             post_categoria2 = None
 
+        while post_categoria1 == post_categoria2:
+            try:
+                post_categoria2 = Post.objects.filter(
+                                estado = True,
+                                publicado = True,
+                                categoria = Categoria.objects.get(id = categoria2)
+                                ).latest('fecha_publicacion')
+            except:
+                post_categoria2 = None
+
+
         contexto = {
             'principal':principal,
             'post1': consulta(post1),
