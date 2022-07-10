@@ -57,7 +57,7 @@ class Inicio(ListView):
             'web':obtenerWeb(),
         }
 
-        return render(request,'blog/index.html',contexto)
+        return render(request,'index_blog.html',contexto)
 
 class Listado(ListView):
 
