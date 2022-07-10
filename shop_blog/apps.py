@@ -2,4 +2,4 @@ from django.apps import AppConfig
 
 
 class BaseConfig(AppConfig):
-    name = 'blog'
+    name = 'shop_blog'

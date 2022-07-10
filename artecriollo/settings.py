@@ -63,7 +63,7 @@ INSTALLED_APPS += [
     # 'authy',
     'profile',
     'newsletters',
-    'blog',
+    'shop_blog',
     'affiliate',
     'notifications',
     'lottery',

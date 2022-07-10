@@ -79,7 +79,7 @@ class FormularioContacto(View):
         form = ContactoForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('blog:index')
+            return redirect('shop_blog:index')
         else:
             contexto = {
                 'form':form,
@@ -125,4 +125,4 @@ class Suscribir(View):
         except:
             pass
 
-        return redirect('blog:index')
+        return redirect('shop_blog:index')

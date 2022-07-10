@@ -42,7 +42,7 @@ urlpatterns = [
     path('shop/', include('shop.urls', namespace='shop')),
     # path('utils/', include('utils.urls', namespace='utils')),
     # path('user/', include('authy.urls', namespace='user')),
-    path('blog/', include('blog.urls', namespace='blog')),
+    path('blog/', include('shop_blog.urls', namespace='shop_blog')),
     path('profile-user/', include('profile.urls', namespace='profile')),
   
     path('newsletters/', include('newsletters.urls', namespace='newsletters')),
