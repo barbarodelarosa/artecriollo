@@ -139,7 +139,7 @@
          <div class="col-lg-6 mb-6 mb-lg-6">
            <div class="section-heading mb-5 d-flex align-items-center">
              <h2>{{ post_categoria1.categoria | upper }}</h2>
-             <div class="ml-auto"><a href="{% url 'shop_blog:generales' %}" class="view-all-btn">VER TODOS</a></div>
+             <div class="ml-auto"><a href="{% url 'shop_blog:categoria' post_categoria1.categoria.slug  %}" class="view-all-btn">VER TODOS</a></div>
            </div>
            <div class="entry2 mb-5">
              <a href="{% url 'shop_blog:detalle_post' post_categoria1.slug %}"><img src="{{ post_categoria1.imagen_referencial.url }}" alt="Image" class="img-fluid rounded"></a>
@@ -156,7 +156,7 @@
         <div class="col-lg-6 mb-6 mb-lg-6">
           <div class="section-heading mb-5 d-flex align-items-center">
             <h2>{{ post_categoria2.categoria | upper }}</h2>
-            <div class="ml-auto"><a href="{% url 'shop_blog:videojuegos' %}" class="view-all-btn">VER TODOS POSTS2</a></div>
+            <div class="ml-auto"><a href="{% url 'shop_blog:categoria' post_categoria2.categoria.slug  %}" class="view-all-btn">VER TODOS</a></div>
           </div>
           <div class="entry2 mb-5">
             <a href="{% url 'shop_blog:detalle_post' post_categoria2.slug %}"><img src="{{ post_categoria2.imagen_referencial.url }}" alt="Image" class="img-fluid rounded"></a>

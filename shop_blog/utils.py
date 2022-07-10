@@ -13,14 +13,14 @@ def obtenerRedes():
 def obtenerWeb():
     return Web.objects.filter(estado = True).latest('fecha_creacion')
 
-def generarCategoria(request,nombre_categoria):
+def generarCategoria(request,slug):
     posts = Post.objects.filter(
                         estado = True,
                         publicado = True,
-                        categoria = Categoria.objects.get(nombre = nombre_categoria)
+                        categoria = Categoria.objects.get(slug = slug)
                         )
     try:
-        categoria = Categoria.objects.get(nombre = nombre_categoria)
+        categoria = Categoria.objects.get(slug = slug)
     except:
         categoria = None
 

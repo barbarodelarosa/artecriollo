@@ -103,8 +103,8 @@ class Inicio(ListView):
 
 class Listado(ListView):
 
-    def get(self,request,nombre_categoria,*args,**kwargs):
-        contexto = generarCategoria(request,nombre_categoria)
+    def get(self,request,slug,*args,**kwargs):
+        contexto = generarCategoria(request,slug)
         return render(request,'blog/categoria.html',contexto)
 
 class FormularioContacto(View):

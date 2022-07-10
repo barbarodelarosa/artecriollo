@@ -1,3 +1,4 @@
+from django.utils.text import slugify
 from django.db import models
 from ckeditor.fields import RichTextField
 
@@ -14,6 +15,9 @@ class ModeloBase(models.Model):
 class Categoria(ModeloBase):
     nombre = models.CharField('Nombre de la Categoría', max_length = 100, unique = True)
     imagen_referencial = models.ImageField('Imagen Referencial',upload_to = 'categoria/')
+    slug = models.CharField('Slug', max_length = 150, unique = True, blank=True, null=True)
+
+
 
     class Meta:
         verbose_name = 'Categoría'
@@ -21,6 +25,10 @@ class Categoria(ModeloBase):
 
     def __str__(self):
         return self.nombre
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.nombre)
+        super(Post, self).save(*args, **kwargs)
 
 class Autor(ModeloBase):
     nombre = models.CharField('Nombres',max_length = 100)
@@ -42,7 +50,7 @@ class Autor(ModeloBase):
 
 class Post(ModeloBase):
     titulo = models.CharField('Título del Post',max_length = 150, unique = True)
-    slug = models.CharField('Slug', max_length = 150, unique = True)
+    slug = models.CharField('Slug', max_length = 150, unique = True, blank=True, null=True)
     descripcion = models.TextField('Descripción')
     autor = models.ForeignKey(Autor, on_delete = models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
@@ -57,6 +65,10 @@ class Post(ModeloBase):
 
     def __str__(self):
         return self.titulo
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.titulo)
+        super(Post, self).save(*args, **kwargs)
 
 class Web(ModeloBase):
     nosotros = models.TextField('Nosotros')
