@@ -74,7 +74,8 @@ class Inicio(ListView):
         except:
             post_categoria2 = None
 
-        while post_categoria1 == post_categoria2:
+        if post_categoria1==post_categoria2:
+            categoria2 = random.choice(categorias)
             try:
                 post_categoria2 = Post.objects.filter(
                                 estado = True,
@@ -83,6 +84,7 @@ class Inicio(ListView):
                                 ).latest('fecha_publicacion')
             except:
                 post_categoria2 = None
+
 
 
         contexto = {
