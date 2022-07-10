@@ -1,97 +1,108 @@
-from distutils.command.upload import upload
-from tokenize import blank_re
 from django.db import models
 from ckeditor.fields import RichTextField
 
-from django.contrib.auth import get_user_model
-from django.db.models.signals import pre_save
-from django.utils.text import slugify
-from django.shortcuts import reverse
-from django.contrib.auth.models import User
-import datetime
-User = get_user_model()
+class ModeloBase(models.Model):
+    id = models.AutoField(primary_key = True)
+    estado = models.BooleanField('Estado',default = True)
+    fecha_creacion = models.DateField('Fecha de Creación',auto_now = False, auto_now_add = True)
+    fecha_modificacion = models.DateField('Fecha de Modificación',auto_now = True, auto_now_add = False)
+    fecha_eliminacion = models.DateField('Fecha de Eliminación',auto_now = True, auto_now_add = False)
 
+    class Meta:
+        abstract = True
 
-import base64
+class Categoria(ModeloBase):
+    nombre = models.CharField('Nombre de la Categoría', max_length = 100, unique = True)
+    imagen_referencial = models.ImageField('Imagen Referencial',upload_to = 'categoria/')
 
-
-def image_directory_path(instance, filename):  
-    return 'blog/{0}'.format(instance.name, filename)
-
-
-class Category(models.Model):
-    name=models.CharField(max_length=25)
-    slug=models.SlugField(max_length=50, unique=True, blank=True, null=True)
-    image=models.ImageField(upload_to=image_directory_path, blank=True, null=True)
-
+    class Meta:
+        verbose_name = 'Categoría'
+        verbose_name_plural = 'Categorías'
 
     def __str__(self):
-        return self.name
+        return self.nombre
 
+class Autor(ModeloBase):
+    nombre = models.CharField('Nombres',max_length = 100)
+    apellidos = models.CharField('Apellidos',max_length = 120)
+    email = models.EmailField('Correo Electrónico', max_length = 200)
+    descripcion = models.TextField('Descripción')
+    imagen_referencial = models.ImageField('Imagen Referencial', null = True, blank = True,upload_to = 'autores/')
+    web = models.URLField('Web', null = True, blank = True)
+    facebook = models.URLField('Facebook', null = True, blank = True)
+    twitter = models.URLField('Twitter', null = True, blank = True)
+    instagram = models.URLField('Instagram', null = True, blank = True)
 
-    def get_absolute_url(self):
-        return reverse("blog:category", kwargs={'slug': self.slug})
-
-
-
-class Tag(models.Model):
-    name=models.CharField(max_length=25)
-    slug=models.SlugField(max_length=50, unique=True, blank=True, null=True)
-    image=models.ImageField(upload_to=image_directory_path, blank=True, null=True)
-
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("blog:tag-detail", kwargs={'slug': self.slug})
-
-
-class Post(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category, related_name="category_post")
-    tag = models.ManyToManyField(Tag, related_name="tag_post")
-    name=models.CharField(max_length=50)
-    slug=models.SlugField(max_length=50, unique=True, blank=True, null=True)
-    image=models.ImageField(upload_to=image_directory_path)
-    content = RichTextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    like=models.IntegerField(default=0)
-    related_post = models.ManyToManyField('self', blank=True)
-
+    class Meta:
+        verbose_name = 'Autor'
+        verbose_name_plural = 'Autores'
 
     def __str__(self):
-        return self.name
+        return '{0},{1}'.format(self.apellidos,self.nombre)
 
-    def get_absolute_url(self):
-        return reverse("blog:post-detail", kwargs={'category': self.category.first().slug, 'slug': self.slug})
+class Post(ModeloBase):
+    titulo = models.CharField('Título del Post',max_length = 150, unique = True)
+    slug = models.CharField('Slug', max_length = 150, unique = True)
+    descripcion = models.TextField('Descripción')
+    autor = models.ForeignKey(Autor, on_delete = models.CASCADE)
+    categoria = models.ForeignKey(Categoria, on_delete = models.CASCADE)
+    contenido = RichTextField()
+    imagen_referencial = models.ImageField('Imagen Referencial', upload_to = 'imagenes/', max_length = 255)
+    publicado = models.BooleanField('Publicado / No Publicado',default = False)
+    fecha_publicacion = models.DateField('Fecha de Publicación')
 
+    class Meta:
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
 
+    def __str__(self):
+        return self.titulo
 
-def pre_save_post_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.name)
-        slug_exists = Post.objects.filter(slug=instance.slug).exists()
-        if  slug_exists:
-             instance.slug = instance.slug+'-'+str(datetime.datetime.now())
-pre_save.connect(pre_save_post_receiver, sender=Post)
+class Web(ModeloBase):
+    nosotros = models.TextField('Nosotros')
+    telefono = models.CharField('Teléfono', max_length = 10)
+    email = models.EmailField('Correo Electrónico', max_length = 200)
+    direccion = models.CharField('Dirección', max_length = 200)
 
+    class Meta:
+        verbose_name = 'Web'
+        verbose_name_plural = 'Webs'
 
+    def __str__(self):
+        return self.nosotros
 
-def pre_safe_category_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.name)
-        slug_exists = Category.objects.filter(slug=instance.slug).exists()
-        if  slug_exists:
-             instance.slug = instance.slug+'-'+str(datetime.datetime.now())
-pre_save.connect(pre_safe_category_receiver, sender=Category)
+class RedesSociales(ModeloBase):
+    facebook = models.URLField('Facebook')
+    twitter = models.URLField('Twitter')
+    instagram = models.URLField('Instagram')
 
+    class Meta:
+        verbose_name = 'Red Social'
+        verbose_name_plural = 'Redes Sociales'
 
-def pre_safe_tag_receiver(sender, instance, *args, **kwargs):
-    if not instance.slug:
-        instance.slug = slugify(instance.name)
-        slug_exists = Tag.objects.filter(slug=instance.slug).exists()
-        if  slug_exists:
-             instance.slug = instance.slug+'-'+str(datetime.datetime.now())
-pre_save.connect(pre_safe_tag_receiver, sender=Tag)
+    def __str__(self):
+        return self.facebook
+
+class Contacto(ModeloBase):
+    nombre = models.CharField('Nombre', max_length = 100)
+    apellidos = models.CharField('Apellidos', max_length = 150)
+    correo = models.EmailField('Correo Electrónico', max_length = 200)
+    asunto = models.CharField('Asunto', max_length = 100)
+    mensaje = models.TextField('Mensaje')
+
+    class Meta:
+        verbose_name = 'Contacto'
+        verbose_name_plural = 'Contactos'
+
+    def __str__(self):
+        return self.asunto
+
+class Suscriptor(ModeloBase):
+    correo = models.EmailField('Correo Electrónico', max_length = 200)
+
+    class Meta:
+        verbose_name = 'Suscriptor'
+        verbose_name_plural = 'Suscriptores'
+
+    def __str__(self):
+        return self.correo

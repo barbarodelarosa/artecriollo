@@ -1,89 +1,128 @@
-from django.shortcuts import render
-from django.views import generic
-from requests import models
-from .models import Category, Tag, Post
-# Create your views here.
+import random
+from django.shortcuts import render,redirect
+from django.views.generic import ListView,View,DetailView
+from django.core.mail import send_mail
+from artecriollo.settings import EMAIL_HOST_USER
+from .models import Post,Categoria,RedesSociales,Web,Suscriptor
+from .utils import *
+from .forms import ContactoForm
 
-class IndexBlogView(generic.ListView):
-    model=Category
-    # models = Category
-    template_name='blog/index_blog_category_list.html'
-    ordering=['name']
+class Inicio(ListView):
 
-class CategoryDetailView(generic.DetailView):
-    model = Category
-    template_name='blog/category_detail.html'
-    def get_context_data(self, **kwargs):
-        
+    def get(self,request,*args,**kwargs):
+        posts = list(Post.objects.filter(
+                estado = True,
+                publicado = True
+                ).values_list('id',flat = True))
+        principal = random.choice(posts)
+        posts.remove(principal)
+        principal = consulta(principal)
 
-        context = super(CategoryDetailView, self).get_context_data(**kwargs)
-        
-        context['categories'] = Category.objects.all()
-        context['tags'] = Tag.objects.all()
- 
-        return context
+        post1 = random.choice(posts)
+        posts.remove(post1)
+        post2 = random.choice(posts)
+        posts.remove(post2)
+        post3 = random.choice(posts)
+        posts.remove(post3)
+        post4 = random.choice(posts)
+        posts.remove(post4)
 
-    
+        try:
+            post_videojuegos = Post.objects.filter(
+                                estado = True,
+                                publicado = True,
+                                categoria = Categoria.objects.get(nombre = 'Videojuegos')
+                                ).latest('fecha_publicacion')
+        except:
+            post_videojuegos = None
 
-class TagsBlogView(generic.ListView):
-    model = Tag
-    template_name='blog/blog_tags_list.html'
-    ordering=['name']
-    def get_context_data(self, **kwargs):
-        
+        try:
+            post_general = Post.objects.filter(
+                            estado = True,
+                            publicado = True,
+                            categoria = Categoria.objects.get(nombre = 'General')
+                            ).latest('fecha_publicacion')
+        except:
+            post_general = None
 
-        context = super(TagsBlogView, self).get_context_data(**kwargs)
-        
-        context['categories'] = Category.objects.all()
-        context['tags'] = Tag.objects.all()
- 
-        return context
+        contexto = {
+            'principal':principal,
+            'post1': consulta(post1),
+            'post2': consulta(post2),
+            'post3': consulta(post3),
+            'post4': consulta(post4),
+            'post_general':post_general,
+            'post_videojuegos':post_videojuegos,
+            'sociales':obtenerRedes(),
+            'web':obtenerWeb(),
+        }
 
+        return render(request,'blog/index.html',contexto)
 
-class TagDetailView(generic.DetailView):
-    model = Tag
-    template_name='blog/tag_detail.html'
-    def get_context_data(self, **kwargs):
-        
+class Listado(ListView):
 
-        context = super(TagDetailView, self).get_context_data(**kwargs)
-        
-        context['categories'] = Category.objects.all()
-        context['tags'] = Tag.objects.all()
- 
-        return context
+    def get(self,request,nombre_categoria,*args,**kwargs):
+        contexto = generarCategoria(request,nombre_categoria)
+        return render(request,'blog/categoria.html',contexto)
 
+class FormularioContacto(View):
+    def get(self,request,*args,**kwargs):
+        form = ContactoForm()
+        contexto = {
+            'sociales':obtenerRedes(),
+            'web':obtenerWeb(),
+            'form':form,
+        }
+        return render(request,'blog/contacto.html',contexto)
 
+    def post(self,request,*args,**kwargs):
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('blog:index')
+        else:
+            contexto = {
+                'form':form,
+            }
+            return render(request,'blog/contacto.html',contexto)
 
-class PostsListView(generic.ListView):
-    model = Post
-    template_name='blog/posts_list.html'
-    ordering=['-updated_at', '-created_at']
-    
-    def get_context_data(self, **kwargs):
-        
+class DetallePost(DetailView):
+    def get(self,request,slug,*args,**kwargs):
+        try:
+            post = Post.objects.get(slug = slug)
+        except:
+            post = None
+        posts = list(Post.objects.filter(
+                estado = True,
+                publicado = True
+                ).values_list('id',flat = True))
+        posts.remove(post.id)
+        post1 = random.choice(posts)
+        posts.remove(post1)
+        post2 = random.choice(posts)
+        posts.remove(post2)
+        post3 = random.choice(posts)
+        posts.remove(post3)
 
-        context = super(PostsListView, self).get_context_data(**kwargs)
-        
-        context['categories'] = Category.objects.all()
-        context['tags'] = Tag.objects.all()
- 
-        return context
+        contexto = {
+            'post':post,
+            'sociales':obtenerRedes(),
+            'web':obtenerWeb(),
+            'post1':consulta(post1),
+            'post2':consulta(post2),
+            'post3':consulta(post3),
+        }
+        return render(request,'blog/post.html',contexto)
 
+class Suscribir(View):
+    def post(self,request,*args,**kwargs):
+        correo = request.POST.get('correo')
+        Suscriptor.objects.create(correo = correo)
+        asunto = 'GRACIAS POR SUSCRIBIRTE A BLOG.DEV!'
+        mensaje = 'Te haz suscrito exitosamente a Blog.Dev, Gracias por tu preferencia!!!'
+        try:
+            send_mail(asunto,mensaje,EMAIL_HOST_USER,[correo])
+        except:
+            pass
 
-class PostDetailView(generic.DetailView):
-    model = Post
-    template_name='blog/post_detail.html'
-    
-
-    def get_context_data(self, **kwargs):
-        
-
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        
-        context['categories'] = Category.objects.all()
-        context['tags'] = Tag.objects.all()
- 
-        return context
-
-
+        return redirect('blog:index')

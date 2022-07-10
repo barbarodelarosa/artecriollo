@@ -1,23 +1,11 @@
 from django.urls import path
+from .views import Inicio,Listado,FormularioContacto,DetallePost,Suscribir
 
-from . import views
-
-app_name='blog'
 urlpatterns = [
-   
-    path('', views.IndexBlogView.as_view(), name='posts'),
-    path('tags/', views.TagsBlogView.as_view(), name='tags-list'),
-    path('tags/<slug>/', views.TagDetailView.as_view(), name='tag-detail'),
-    path('posts/', views.PostsListView.as_view(), name='posts'),
-    path('<slug>/', views.CategoryDetailView.as_view(), name='category'),
-    path('<category>/<slug>/', views.PostDetailView.as_view(), name='post-detail'),
-
-
-
-
+    path('',Inicio.as_view(), name = 'index'),
+    path('videojuegos/',Listado.as_view(),{'nombre_categoria':'Videojuegos'}, name = 'videojuegos'),
+    path('generales/',Listado.as_view(),{'nombre_categoria':'General'}, name = 'generales'),
+    path('formulario_contacto/', FormularioContacto.as_view(), name = 'formulario_contacto'),
+    path('suscribirse/',Suscribir.as_view(), name = 'suscribirse'),
+    path('<slug:slug>/',DetallePost.as_view(), name = 'detalle_post'),
 ]
-
-
-
-
-
