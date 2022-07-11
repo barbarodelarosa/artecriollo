@@ -78,7 +78,7 @@
          <div class="row same-height align-items-center">
            <div class="col-md-12 col-lg-6">
              <div class="post-entry">
-               <a href="{% url 'shop_blog:categoria' printcipal.categoria.slug %}"><span class="post-category text-white bg-success mb-3">{{ principal.categoria | upper }}</span></a>
+               <a href="{% url 'shop_blog:categoria' principal.categoria.slug %}"><span class="post-category text-white bg-success mb-3">{{ principal.categoria | upper }}</span></a>
                <h2 class="mb-4"><a href="{% url 'shop_blog:detalle_post' principal.slug %}">{{ principal.titulo }}</a></h2>
                <div class="post-meta align-items-center text-left">
                  <figure class="author-figure mb-0 mr-3 float-left"><img src="{{ principal.autor.imagen_referencial.url }}" alt="Image" class="img-fluid"></figure>
