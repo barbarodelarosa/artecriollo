@@ -21,6 +21,28 @@
    <link rel="stylesheet" href="{% static 'blog/css/aos.css' %}">
 
    <link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+
+<script src="https://www.google.com/recaptcha/api.js?render=6Lcp5zQgAAAAABxMCgINkEovuLi0EACYhB3cVZZV"></script>
+<script>
+    grecaptcha.ready(function() {
+    // do request for recaptcha token
+    // response is promise with passed token
+        grecaptcha.execute('6Lcp5zQgAAAAABxMCgINkEovuLi0EACYhB3cVZZV', {action:'validate_captcha'})
+                  .then(function(token) {
+            // add token value to form
+            document.getElementById('g-recaptcha-response').value = token;
+        });
+    });
+</script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-QM27MXXTZ7"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-QM27MXXTZ7');
+</script>
   {% block extracss %}
   {% endblock extracss %}
  </head>
