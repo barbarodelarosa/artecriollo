@@ -98,7 +98,7 @@
        <div class="row align-items-stretch retro-layout">
          <div class="col-md-5">
            <a href="{% url 'shop_blog:detalle_post' post1.slug %}" class="hentry img-1 h-100 gradient" style="background-image: url({{ post1.imagen_referencial.url }});">
-            <a href="{% url 'shop_blog:categoria' post1.categoria.slug %}"><span class="post-category text-white bg-danger">{{ post1.categoria |upper }}</span></a>
+            <span class="post-category text-white bg-danger"><a href="{% url 'shop_blog:categoria' post1.categoria.slug %}">{{ post1.categoria |upper }}</a></span>
              <div class="text">
                <h2>{{ post1.titulo }}</h2>
                <span>{{ post1.fecha_publicacion }}</span>
@@ -107,7 +107,7 @@
          </div>
          <div class="col-md-7">
            <a href="{% url 'shop_blog:detalle_post' post2.slug %}" class="hentry img-2 v-height mb30 gradient" style="background-image: url({{ post2.imagen_referencial.url }});">
-            <a href="{% url 'shop_blog:categoria' post2.categoria.slug %}"><span class="post-category text-white bg-success">{{ post2.categoria |upper }}</span></a>
+            <span class="post-category text-white bg-success"><a href="{% url 'shop_blog:categoria' post2.categoria.slug %}">{{ post2.categoria |upper }}</a></span>
              <div class="text text-sm">
                <h2>{{ post2.titulo }}</h2>
                <span>{{ post2.fecha_publicacion }}</span>
@@ -116,14 +116,14 @@
 
            <div class="two-col d-block d-md-flex">
              <a href="{% url 'shop_blog:detalle_post' post3.slug %}" class="hentry v-height img-2 gradient" style="background-image: url({{ post3.imagen_referencial.url }});">
-              <a href="{% url 'shop_blog:categoria' post3.categoria.slug %}"><span class="post-category text-white bg-primary">{{ post3.categoria |upper }}</span></a>
+              <span class="post-category text-white bg-primary"><a href="{% url 'shop_blog:categoria' post3.categoria.slug %}">{{ post3.categoria |upper }}</a></span>
                <div class="text text-sm">
                  <h2>{{ post3.titulo }}</h2>
                  <span>{{ post3.fecha_publicacion }}</span>
                </div>
              </a>
              <a href="{% url 'shop_blog:detalle_post' post4.slug %}" class="hentry v-height img-2 ml-auto gradient" style="background-image: url({{ post4.imagen_referencial.url }});">
-              <a href="{% url 'shop_blog:categoria' post4.categoria.slug %}"><span class="post-category text-white bg-warning">{{ post4.categoria |upper }}</span></a>
+              <span class="post-category text-white bg-warning"><a href="{% url 'shop_blog:categoria' post4.categoria.slug %}">{{ post4.categoria |upper }}</a></span>
                <div class="text text-sm">
                  <h2>{{ post4.titulo }}</h2>
                  <span>{{ post4.fecha_publicacion }}</span>
